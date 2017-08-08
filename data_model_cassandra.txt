@@ -1,0 +1,15 @@
+Cassandra Data Model Rules:
+=============================
+
+Maximize the number of writes
+In Cassandra, writes are very cheap. Cassandra is optimized for high write performance. 
+So try to maximize your writes for better read performance and data availability. 
+There is a tradeoff between data write and data read. So, optimize you data read performance by maximizing the number of data writes.
+
+Maximize Data Duplication
+Data denormalization and data duplication are defacto of Cassandra. Disk space is not more expensive than memory, CPU processing and IOs operation.
+As Cassandra is a distributed database, so data duplication provides instant data availability and no single point of failure.
+
+Spread Data Evenly Around the Cluster:
+Data is spread to different nodes based on partition keys that is the first part of the primary key. 
+Try to choose integers as a primary key for spreading data evenly around the cluster.
