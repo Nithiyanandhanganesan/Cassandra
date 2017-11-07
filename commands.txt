@@ -1,3 +1,4 @@
+# Commands
 DESCRIBE keyspaces;
 CREATE  KEYSPACE test_schema with replication={'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 
@@ -30,7 +31,7 @@ drop table test_schema.test_table;
 spark + cassandra:
 ========================
 
-Create a keyspace called ìtest_schemaî in Cassandra:
+Create a keyspace called ‚Äútest_schema‚Äù in Cassandra:
 CREATE TABLE test_table1(
    column1 int,
    column2 varchar,
@@ -53,7 +54,7 @@ test_spark_rdd.first
 
 
 To read data from Cassandra, you create an RDD from a specific table.  This is very simple:
-val data = sc.cassandraTable(ìmy_keyspaceî, ìmy_tableî)
+val data = sc.cassandraTable(‚Äúmy_keyspace‚Äù, ‚Äúmy_table‚Äù)
 This will return an RDD of type Row, where Row is a data type which stores a single row from a table as a map from column name to value.
 
 to read cassandra table to dataframe
