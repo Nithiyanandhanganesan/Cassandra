@@ -1,11 +1,18 @@
 # Commands
+
+Basic Commands:
+===================
 DESCRIBE keyspaces;
-CREATE  KEYSPACE test_schema with replication={'class' : 'SimpleStrategy', 'replication_factor' : 1 };
+CREATE  KEYSPACE IF NOT EXISTS test_schema with replication={'class' : 'SimpleStrategy', 'replication_factor' : 1 };
+
+USE test_schema;
+
+ALTER KEYSPACE "test_schema" WITH REPLICATION ={ 'class' : 'SimpleStrategy', 'replication_factor' : 3 };
 
 CREATE TABLE test_table(
    column1 int,
    column2 varchar,
-   column3 varchar,
+   column3 text,
    PRIMARY KEY (column1)
    );
 
@@ -26,6 +33,42 @@ delete from test_schema.test_table where column1=1; [partition key is mandatory 
 
 drop table test_schema.test_table;
 
+
+Load data from csv to cassandra table:
+----------------------------------------
+
+-> create csv file test.csv
+
+copy test_schema.first_table from '/Users/nithiyanandhan/Desktop/install_software/cassandra/test_file/test.csv'
+with header=false and delimiter=',';
+
+
+Create table with Composite key and Compound key:
+--------------------------------------------------
+
+CREATE TABLE test_composite_key (
+col1 int,
+col2 text,
+col3 text,
+col4 int,
+PRIMARY KEY ((col1, col2), col4)
+);
+
+
+insert into test_composite_key (col1,col2,col3,col4) values(1,'annad','test',2);
+insert into test_composite_key (col1,col2,col3,col4) values(1,'annad','test1',1);
+insert into test_composite_key (col1,col2,col3,col4) values(1,'annad','test',2);
+insert into test_composite_key (col1,col2,col3,col4) values(1,'haha','tesdfdt',2);
+insert into test_composite_key (col1,col2,col3,col4) values(1,'haha','testaaa',2);
+
+
+
+ col1 | col2  | col4 | col3
+------+-------+------+---------
+    1 |  haha |    2 | testaaa
+    1 | annad |    1 |   test1
+    1 | annad |    2 |    test
+
 =========================================================
 
 spark + cassandra:
@@ -41,7 +84,9 @@ CREATE TABLE test_table1(
 
 insert into test_schema.test_table (column1 ,column2 ,column3) values (1,'anand','cse') ;
 
-spark-shell --jars "/root/cassandra/new_tar/spark-cassandra-connector_2.10-1.6.3.jar,/root/cassandra/new_tar/jsr166e-1.1.0.jar"          [ compatible version spark 1.6, cassandra 3.11.0]
+spark-shell --jars "/Users/nithiyanandhan/Desktop/install_software/dependent_jars/jar_files/spark-cassandra-connector_2.10-2.0.13.jar,/Users/nithiyanandhan/Desktop/install_software/dependent_jars/jar_files/spark-cassandra-connector_2.10-2.0.13.jar/jsr166e-1.1.0.jar"
+
+[ compatible version spark 1.6, cassandra 3.11.0]
 
 
 sc.stop

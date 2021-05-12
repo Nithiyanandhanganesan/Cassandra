@@ -1,0 +1,17 @@
+Prerequisite:
+
+java 8
+python 2.x
+
+Download tar from below link
+
+http://archive.apache.org/dist/cassandra/4.0-beta1/apache-cassandra-4.0-beta1-bin.tar.gz
+
+-> tar -xvzf tarname
+
+-> go to bin folder
+
+-> ./cassandra
+
+-> ./cqlsh
+
